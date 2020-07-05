@@ -1,10 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
 
-// import { Container } from './styles';
+import Routes from './routes'
 
 const src: React.FC = () => {
-  return <View />;
+  return (
+    <NavigationContainer>
+      <Routes />
+    </NavigationContainer>
+  );
 }
 
 export default src;
