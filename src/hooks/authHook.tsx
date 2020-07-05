@@ -7,8 +7,6 @@ import React, {
   useContext,
 } from 'react';
 
-import { Alert } from 'react-native';
-
 import AsyncStorage from '@react-native-community/async-storage';
 
 
@@ -71,8 +69,8 @@ export const AuthProvider: React.FC = ({ children }) => {
       api.defaults.headers.authorization = `Bearer ${token}`;
 
       setData({ token, user });
-    } catch (err) {
-      Alert.alert('Erro', 'Dados de usuário inválidos!');
+    } catch ({ response }) {
+      throw new Error(response.data.error)
     }
   }, []);
 

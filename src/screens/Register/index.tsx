@@ -42,6 +42,7 @@ const Register: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState(''); 
+  const [showKeyboard, setShowKeyboard] = useState(false)
 
   const handleSubmit = useCallback(async (data: RegisterCredencials) => {
 
@@ -90,6 +91,15 @@ const Register: React.FC = () => {
     }
   },[showModal])
 
+  useEffect(() => {
+    Keyboard.addListener("keyboardDidShow", () => setShowKeyboard(true))
+    Keyboard.addListener("keyboardDidHide", () => setShowKeyboard(false))
+
+    return () => {
+      Keyboard.removeListener("keyboardDidShow", () => setShowKeyboard(true))
+      Keyboard.removeListener("keyboardDidHide", () => setShowKeyboard(false))
+    }
+  },[])
 
   return (
     <Container>
@@ -131,7 +141,7 @@ const Register: React.FC = () => {
         </LinkContainer>
       </Content>
 
-      <ImageFooter source={loginImage} />
+      {!showKeyboard && <ImageFooter source={loginImage} />}
 
       <Alert 
         isVisible={showModal}
