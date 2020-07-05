@@ -1,5 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
 
 import { 
   Container, 
@@ -19,13 +20,17 @@ import Input from '../../components/Input';
 import loginImage from '../../assets/login-app.png'
 
 const Login: React.FC = () => {
+
+  const { navigate } = useNavigation();
+
   return (
     <Container>
       <Content>
         <Title>Bem vindo ao Scheduler</Title>
         <SubTitle>
+          Marque um horário para seus atendimentos.
           Faça seu login para acessar a aplicação. 
-          Marque um horário para seus atendimentos
+          
         </SubTitle>
 
         <Input 
@@ -46,7 +51,7 @@ const Login: React.FC = () => {
 
         <LinkContainer>
           <LinkText>Ainda não tem conta?</LinkText>
-          <LinkButton>
+          <LinkButton onPress={() => navigate('Register')}>
             <LinkButtonText>Cadastre-se.</LinkButtonText>
           </LinkButton>
         </LinkContainer>
