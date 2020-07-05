@@ -2,6 +2,8 @@ import React from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { Form } from '@unform/mobile'
+
 import { 
   Container, 
   Title, 
@@ -33,21 +35,25 @@ const Login: React.FC = () => {
           
         </SubTitle>
 
-        <Input 
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="email-address"
-          icon="mail"
-          placeholder="E-mail"
-        />
+        <Form onSubmit={() => {}}>
+          <Input 
+            name="email"
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
+            icon="mail"
+            placeholder="E-mail"
+          />
 
-        <Input 
-          icon="lock"
-          secureTextEntry
-          placeholder="E-mail"
-        />
+          <Input
+            name="password" 
+            icon="lock"
+            secureTextEntry
+            placeholder="E-mail"
+          />
 
-        <Button>Login</Button>
+          <Button onPress={() => {}}>Login</Button>
+        </Form>
 
         <LinkContainer>
           <LinkText>Ainda não tem conta?</LinkText>

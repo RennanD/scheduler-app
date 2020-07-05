@@ -2,7 +2,11 @@ import React from 'react';
 
 import { Container,TextButton } from './styles';
 
-const Button: React.FC = ({ children }) => {
+interface ButtonProps {
+  onPress(): void;
+}
+
+const Button: React.FC<ButtonProps> = ({ onPress, children }) => {
   return (
     <Container 
       style={{
@@ -16,6 +20,8 @@ const Button: React.FC = ({ children }) => {
 
         elevation: 5,
       }}
+
+      onPress={onPress}
     >
       <TextButton>{children}</TextButton>
     </Container>
