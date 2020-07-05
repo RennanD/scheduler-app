@@ -1,4 +1,6 @@
-import React, { useCallback, useState, useRef } from 'react';
+import React, { useCallback, useState, useRef, useEffect } from 'react';
+
+import { Keyboard } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -87,6 +89,7 @@ const Register: React.FC = () => {
       setShowModal(true)
     }
   },[showModal])
+
 
   return (
     <Container>

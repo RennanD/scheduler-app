@@ -1,13 +1,15 @@
 import styled from 'styled-components/native';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 export const Container = styled.View`
-  flex: 1px;
+  flex: 1;
   background: #fff;
 `;
 
 export const Content = styled.View`
-  flex: 1;
+  flex: 2;
   padding: 20px;
+  padding-top: ${getStatusBarHeight() + 20}px;
   justify-content: center;
 `;
 
@@ -16,14 +18,9 @@ export const Title = styled.Text`
   color: #333;
   font-weight: bold;
   width: 300px;
+  margin-bottom: 20px;
 `;
 
-export const SubTitle = styled.Text`
-  font-size: 18px;
-  color: #666;
-  width: 250px;
-  margin: 20px 0 50px;
-`;
 
 export const LinkContainer = styled.View`
   flex-direction: row;
@@ -47,4 +44,6 @@ export const LinkButtonText = styled.Text`
 
 export const ImageFooter = styled.Image`
   align-self: center;
+  flex: 1;
+  width: 80%;
 `;

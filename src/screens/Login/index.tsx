@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { Keyboard } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -7,7 +9,6 @@ import { Form } from '@unform/mobile'
 import { 
   Container, 
   Title, 
-  SubTitle, 
   Content,
   LinkContainer,
   LinkText,
@@ -25,15 +26,22 @@ const Login: React.FC = () => {
 
   const { navigate } = useNavigation();
 
+  const [showKeyboard, setShowKeyboard] = useState(false)
+
+  useEffect(() => {
+    Keyboard.addListener("keyboardDidShow", () => setShowKeyboard(true))
+    Keyboard.addListener("keyboardDidHide", () => setShowKeyboard(false))
+
+    return () => {
+      Keyboard.removeListener("keyboardDidShow", () => setShowKeyboard(true))
+      Keyboard.removeListener("keyboardDidHide", () => setShowKeyboard(false))
+    }
+  },[])
+
   return (
     <Container>
       <Content>
         <Title>Bem vindo ao Scheduler</Title>
-        <SubTitle>
-          Marque um horário para seus atendimentos.
-          Faça seu login para acessar a aplicação. 
-          
-        </SubTitle>
 
         <Form onSubmit={() => {}}>
           <Input 
@@ -63,7 +71,7 @@ const Login: React.FC = () => {
         </LinkContainer>
       </Content>
 
-      <ImageFooter source={loginImage} />
+      {!showKeyboard && <ImageFooter source={loginImage} />}
     </Container>
   )
 }
