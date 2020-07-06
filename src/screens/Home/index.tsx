@@ -5,6 +5,8 @@ import { Feather } from '@expo/vector-icons';
 import { 
   Container, 
   Header,
+  TitleContainer,
+  SignOutButton,
   TitlePage, 
   TitleDate, 
   AppointmentsList, 
@@ -21,8 +23,14 @@ const Home: React.FC = () => {
   return (
     <Container>
       <Header>
-        <TitlePage>Meus agendamentos.</TitlePage>
-        <TitleDate>Domingo, 06 de Jul.</TitleDate>
+        <TitleContainer>
+          <TitlePage>Meus agendamentos</TitlePage>
+          <TitleDate>Domingo, 06 de Jul.</TitleDate>
+        </TitleContainer>
+
+        <SignOutButton >
+          <Feather name="log-out" color="#ec3030" size={30} />
+        </SignOutButton>
       </Header>
 
       <AppointmentsList>

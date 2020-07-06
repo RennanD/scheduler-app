@@ -9,7 +9,17 @@ export const Container = styled.View`
 export const Header = styled.View`
   padding: 20px;
   padding-top: ${getStatusBarHeight() + 20}px;
+  flex-direction: row;
 `;
+
+export const TitleContainer = styled.View`
+
+`;
+
+export const SignOutButton = styled.TouchableOpacity`
+  padding: 20px;
+`;
+
 
 export const TitlePage = styled.Text`
   font-size: 32px;

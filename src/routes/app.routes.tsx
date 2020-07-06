@@ -18,7 +18,7 @@ const AppRoutes: React.FC = () => {
         name="Home" 
         component={Home} 
         options={{
-          title:"Início",
+          title:"Agendamentos",
           tabBarIcon: ({ color }) => 
             <MaterialCommunityIcons 
               name="calendar-today"
