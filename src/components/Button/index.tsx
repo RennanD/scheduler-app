@@ -1,12 +1,15 @@
 import React from 'react';
 
+import { ActivityIndicator } from 'react-native';
+
 import { Container,TextButton } from './styles';
 
 interface ButtonProps {
   onPress(): void;
+  loading: boolean
 }
 
-const Button: React.FC<ButtonProps> = ({ onPress, children }) => {
+const Button: React.FC<ButtonProps> = ({ onPress, loading, children }) => {
   return (
     <Container 
       style={{
@@ -23,7 +26,11 @@ const Button: React.FC<ButtonProps> = ({ onPress, children }) => {
 
       onPress={onPress}
     >
-      <TextButton>{children}</TextButton>
+      {loading ? (
+        <ActivityIndicator size={24} color="#fff" />
+      ) : (
+        <TextButton>{children}</TextButton>
+      )}
     </Container>
   )
 }

@@ -41,10 +41,14 @@ const Register: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
 
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const [message, setMessage] = useState(''); 
   const [showKeyboard, setShowKeyboard] = useState(false)
 
   const handleSubmit = useCallback(async (data: RegisterCredencials) => {
+
+    setLoading(true)
 
     const { email, password } = data
 
@@ -72,6 +76,8 @@ const Register: React.FC = () => {
       setShowModal(true)
 
       formRef.current?.reset()
+      setLoading(false)
+
 
     } catch (err) {
 
@@ -88,6 +94,8 @@ const Register: React.FC = () => {
 
       setMessage(response.data.error)
       setShowModal(true)
+      setLoading(false)
+
     }
   },[showModal])
 
@@ -128,6 +136,7 @@ const Register: React.FC = () => {
 
           <Button
             onPress={() => formRef.current?.submitForm()}
+            loading={loading}
           >
             Cadastrar
           </Button>

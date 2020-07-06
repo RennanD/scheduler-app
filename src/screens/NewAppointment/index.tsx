@@ -47,9 +47,13 @@ const NewAppointment: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
 
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const [message, setMessage] = useState(''); 
 
   const handleSubmit = useCallback(async (data: RequestAppointment) => {
+    setLoading(true)
+    
     const year = String(data.date.getFullYear())
     const month = String(data.date.getMonth() + 1)
     const day = String(data.date.getDate())
@@ -60,8 +64,6 @@ const NewAppointment: React.FC = () => {
     const stringDate = `${year}-${formattedMonth}-${formattedDay}T${data.hour}-03:00`
 
     const newDate = parseISO(stringDate)
-
-    console.log(data);
 
     try {
       await api.post('/appointments', {
@@ -74,10 +76,15 @@ const NewAppointment: React.FC = () => {
       setShowModal(true);
 
       formRef.current?.reset();
+
+      setLoading(false)
+
     } catch ({ response }) {
 
       setMessage(response.data.error);
       setShowModal(true);
+      setLoading(false)
+
     }
 
   },[])
@@ -85,7 +92,7 @@ const NewAppointment: React.FC = () => {
   return (
     <Container>
       <Header>
-        <Title>Oi</Title>
+        <Title>CADASTRAR NOVO AGENDAMENTO</Title>
       </Header>
 
       <FormContainer>
@@ -112,7 +119,12 @@ const NewAppointment: React.FC = () => {
           name="hour"
         />
 
-        <Button onPress={() => formRef.current?.submitForm()}>Adicionar</Button>
+        <Button 
+          loading={loading}
+          onPress={() => formRef.current?.submitForm()}
+        >
+            Adicionar
+        </Button>
       </Form>
       </FormContainer>
 

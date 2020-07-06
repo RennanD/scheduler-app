@@ -44,10 +44,12 @@ const Login: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
 
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(''); 
 
   const handleSubmit = useCallback(async (data: AuthCredencials) => {
 
+    setLoading(true)
     const { email, password } = data
 
     try {
@@ -72,6 +74,8 @@ const Login: React.FC = () => {
 
       formRef.current?.reset()
 
+      setLoading(false)
+
     } catch (err) {
 
       if(err instanceof Yup.ValidationError){        
@@ -84,6 +88,9 @@ const Login: React.FC = () => {
 
       setMessage(err.message)
       setShowModal(true)
+
+      setLoading(false)
+      
     }
   },[showModal])
 
@@ -123,7 +130,12 @@ const Login: React.FC = () => {
             placeholder="E-mail"
           />
 
-          <Button onPress={() => formRef.current?.submitForm()}>Login</Button>
+          <Button 
+            onPress={() => formRef.current?.submitForm()}
+            loading={loading}
+          >
+            Login
+          </Button>
         </Form>
 
         <LinkContainer>
