@@ -2,6 +2,9 @@ import React, { useRef, useCallback, useState } from 'react';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
+import * as Yup from 'yup';
+
+import { useNavigation } from '@react-navigation/native';
 
 import { parseISO } from 'date-fns';
 
@@ -47,6 +50,8 @@ const NewAppointment: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null)
 
+  const { reset } = useNavigation();
+
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -67,6 +72,22 @@ const NewAppointment: React.FC = () => {
     const newDate = parseISO(stringDate)
 
     try {
+
+      const schema = Yup.object().shape({
+        title: Yup.string()
+          .required('E-mail obrigatório'),
+        description: Yup.string()
+          .required('Senha obrigatória'),
+        date: Yup.date()
+          .required('A data é obrigatória'),
+        hour: Yup.string()
+          .required('Selecione um horário.')
+      })
+
+      await schema.validate(data, {
+        abortEarly: false,
+      })
+
       await api.post('/appointments', {
         title: data.title,
         description: data.description,
@@ -89,6 +110,15 @@ const NewAppointment: React.FC = () => {
     }
 
   },[])
+
+  const handleOkPressed = useCallback(() => {
+    reset({
+      routes: [
+        { name: 'Home' },
+      ],
+      index: 0,
+    })
+  }, [reset])
 
   return (
     <Container
@@ -135,7 +165,7 @@ const NewAppointment: React.FC = () => {
       <Alert
         isVisible={showModal}
         message={message}
-        onClose={() => setShowModal(false)}
+        onClose={handleOkPressed}
       />
 
     </Container>

@@ -13,7 +13,7 @@ import { format } from 'date-fns';
 
 import { useField } from '@unform/core';
 
-import { Container, DatePickerText, Icon, PlaceholderText } from './styles';
+import { Container, DatePickerText, Icon, PlaceholderText, ErrorMessage } from './styles';
 
 interface PickerProps {
   name: string;
@@ -24,7 +24,7 @@ interface InputValueReference {
 }
 
 const DatePickerInput: React.FC<PickerProps> = ({ name }) => {
-  const { fieldName, registerField, defaultValue } = useField(name);
+  const { fieldName, registerField, defaultValue, error } = useField(name);
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
 
   const [date, setDate] = useState<Date>(new Date());
@@ -65,7 +65,8 @@ const DatePickerInput: React.FC<PickerProps> = ({ name }) => {
 
   return (
     <>
-      <Container ref={datepickerRef} onPress={handleToggleDatePicker}>
+      {!!error && <ErrorMessage>{error}</ErrorMessage>}
+      <Container error={!!error} ref={datepickerRef} onPress={handleToggleDatePicker}>
         <Icon name="calendar" size={24} color="#0076D0" />
         <DatePickerText>
           {hasChanged ? (
