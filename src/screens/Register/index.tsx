@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react';
 
-import { Keyboard } from 'react-native';
+import { Keyboard, Platform } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -110,7 +110,10 @@ const Register: React.FC = () => {
   },[])
 
   return (
-    <Container>
+    <Container
+      enabled={Platform.OS === 'ios' ? true : false}
+      behavior="padding"
+    >
       <Content>
         <Title>Bem vindo ao Scheduler</Title>
         <SubTitle>

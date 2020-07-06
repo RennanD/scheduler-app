@@ -16,6 +16,7 @@ import Alert from '../../components/Alert';
 
 
 import api from '../../services/api';
+import { Platform } from 'react-native';
 
 interface RequestAppointment {
   title: string;
@@ -90,7 +91,10 @@ const NewAppointment: React.FC = () => {
   },[])
 
   return (
-    <Container>
+    <Container
+      enabled={Platform.OS === 'ios' ? true : false}
+      behavior="padding"
+    >
       <Header>
         <Title>CADASTRAR NOVO AGENDAMENTO</Title>
       </Header>
